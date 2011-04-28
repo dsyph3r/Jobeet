@@ -1,0 +1,4 @@
+system/cache/*
+system/log/*
+system/lib/*/doctrine/base/*
+system/data/sql/*
