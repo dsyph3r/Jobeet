@@ -60,4 +60,24 @@ class JobeetJobTable extends Doctrine_Table
       return $q;
     }
   
+    public function cleanup($days)
+    {
+      $q = $this->createQuery('a')
+        ->delete()
+        ->andWhere('a.is_activated = ?', 0)
+        ->andWhere('a.created_at < ?', date('Y-m-d', time() - 86400 * $days));
+     
+      return $q->execute();
+    
+    }
+    
+    public function retrieveBackendJobList(Doctrine_Query $q)
+    {
+      $rootAlias = $q->getRootAlias();
+   
+      $q->leftJoin($rootAlias . '.JobeetCategory c');
+   
+      return $q;
+    }
+    
 }

@@ -11,6 +11,9 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->setWebDir(dirname($this->getRootDir()).'/httpdocs');
     //sfConfig::set('sf_upload_dir', dirname($this->getRootDir()).'/uploads');
     
-    $this->enablePlugins('sfDoctrinePlugin');
+    $this->enablePlugins(
+      'sfDoctrinePlugin',
+      'sfDoctrineGuardPlugin'
+    );
   }
 }

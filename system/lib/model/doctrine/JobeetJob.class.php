@@ -54,12 +54,29 @@ class JobeetJob extends BaseJobeetJob
     return ceil(($this->getDateTimeObject('expires_at')->format('U') - time()) / 86400);
   }
 
+  public function extend($force = false)
+  {
+    if (!$force && !$this->expiresSoon())
+    {
+      return false;
+    }
+ 
+    $this->setExpiresAt(date('Y-m-d', time() + 86400 * sfConfig::get('app_active_days')));
+    $this->save();
+ 
+    return true;
+  }
+  
   public function publish()
   {
     $this->setIsActivated(true);
     $this->save();
   }
 
+  public function getCategoryName() {
+    return $this->getJobeetCategory();
+  }
+  
   public function save(Doctrine_Connection $conn = null)
   {
     if ($this->isNew() && !$this->getExpiresAt())

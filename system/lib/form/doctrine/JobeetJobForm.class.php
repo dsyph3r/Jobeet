@@ -14,13 +14,7 @@ class JobeetJobForm extends BaseJobeetJobForm
   public function configure()
   {
     
-    unset(
-      $this['created_at'],
-      $this['updated_at'],
-      $this['expires_at'],
-      $this['is_activated'],
-      $this['token']
-    );
+    $this->removeFields();
     
     // Can be used to add fields instead of unsetting them, also the order can be defined by the order of the array
     //$this->useFields(array('category_id', 'type', 'company', 'logo', 'url', 'position', 'location', 'description', 'how_to_apply', 'is_public', 'email'));
@@ -58,6 +52,17 @@ class JobeetJobForm extends BaseJobeetJobForm
     
     $this->widgetSchema->setNameFormat('job[%s]');
     
+  }
+  
+  protected function removeFields()
+  {
+    unset(
+      $this['created_at'],
+      $this['updated_at'],
+      $this['expires_at'],
+      $this['is_activated'],
+      $this['token']
+    );
   }
   
 }
