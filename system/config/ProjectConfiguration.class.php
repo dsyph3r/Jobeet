@@ -5,6 +5,9 @@ sfCoreAutoload::register();
 
 class ProjectConfiguration extends sfProjectConfiguration
 {
+
+  static protected $zendLoaded = false;
+  
   public function setup()
   {
     // Change the web root to match the host server
@@ -16,4 +19,18 @@ class ProjectConfiguration extends sfProjectConfiguration
       'sfDoctrineGuardPlugin'
     );
   }
+  
+  static public function registerZend()
+  {
+    if (self::$zendLoaded)
+    {
+      return;
+    }
+ 
+    set_include_path(sfConfig::get('sf_lib_dir').'/vendor'.PATH_SEPARATOR.get_include_path());
+    require_once sfConfig::get('sf_lib_dir').'/vendor/Zend/Loader/Autoloader.php';
+    Zend_Loader_Autoloader::getInstance();
+    self::$zendLoaded = true;
+  }
+  
 }

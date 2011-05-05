@@ -2,6 +2,7 @@
 
 class Jobeet
 {
+  
   static public function slugify($text)
   {
     // replace non letter or digits by -
@@ -29,4 +30,5 @@ class Jobeet
    
     return $text;
   }
+
 }
